@@ -1,0 +1,11 @@
+<script>
+   export let params;
+   import articles from '../blog.js';
+
+   let id = params.postid - 1
+</script>
+
+<h2>{articles[id].title}</h2>
+<h4>{articles[id].subtitle}</h4>
+<hr/>
+{@html articles[id].content}

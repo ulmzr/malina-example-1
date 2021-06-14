@@ -1,0 +1,61 @@
+<script>
+   import Navaid from 'navaid';
+   import Nav from './components/Nav.xht';
+
+   let Route, params={}, active, uri;
+   
+   const router = Navaid('/')
+		.on('/', () => run(import('./routes/Home.xht')))
+		.on('/about', () => run(import('./routes/About.xht')))
+		.on('/blog', () => run(import('./routes/Blog.xht')))
+		.on('/blog/:postid', obj => run(import('./routes/Articles.xht'), obj))
+		.listen();
+
+
+   function run(thunk, obj) {
+      uri = location.pathname;
+      active = uri.split('/')[1] || 'home';
+		const target = uri;
+		thunk.then(m => {
+			if (target !== uri) return;
+			params = obj || {};
+			if (m.preload) {
+				m.preload({ params }).then(() => {
+					if (target !== uri) return;
+					Route = m.default;
+					window.scrollTo(0, 0);
+				});
+			} else {
+				Route = m.default;
+				window.scrollTo(0, 0);
+			}
+		});
+	}
+
+   function onDestroy() {
+      router.unlisten
+   };
+
+</script>
+
+<Nav {active} />
+
+<main>
+{#if Route}
+   <component:Route {params}/>
+{:else}
+   Loading....
+{/if}
+</main>
+
+
+<style>
+	main {
+		position: relative;
+		max-width: 56em;
+		background-color: white;
+		padding: 2em;
+		margin: 0 auto;
+		box-sizing: border-box;
+	}
+</style>

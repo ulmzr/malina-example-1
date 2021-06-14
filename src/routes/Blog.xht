@@ -1,0 +1,11 @@
+<script>
+   import articles from '../blog.js';
+</script>
+
+<h2>Blog</h2>
+<ul>
+    {#each articles as article}
+        <li><a href={`blog/${article.id}`}>{article.title}</a></li>
+    {/each}
+</ul>
+
