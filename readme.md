@@ -10,5 +10,5 @@ Malina.js builds your web-application to use it **without framework on frontend 
 * **[Try Malina.js online (REPL)](https://malinajs.github.io/repl/)**
 
 In this example;
-- Routing using Navaid
-- Splitting code
+- Routing using [Navaid](https://github.com/lukeed/navaid).
+- Splitting code.
